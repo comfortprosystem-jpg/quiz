@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Квиз по умным тумбам</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="quiz-background">
+
+    <div class="quiz-container">
+        <div class="progress-container">
+            <div id="progress-bar" class="progress-bar"></div>
+            <span id="progress-text"></span>
+        </div>
+
+        <div id="step-1" class="quiz-step active">
+            <h2>Выберите дизайн тумбы, который подойдет именно вам</h2>
+            <p>Опрос займет не более 3 минут.</p>
+            <p>Пройдите тест, чтобы подобрать идеальную умную тумбу для вашего проектора. В конце вас ждёт приятный приз!</p>
+            <button onclick="nextStep(2)">Начать</button>
+        </div>
+
+        <div id="step-2" class="quiz-step">
+            <h2>Шаг 1: Выберите стиль тумбы, который вам нравится больше всего</h2>
+            <div class="options-container">
+                <div class="option" onclick="selectStyle('black')">
+                    <img src="images/black_table.jpg" alt="Черная тумба">
+                    <p>Черная</p>
+                </div>
+                <div class="option" onclick="selectStyle('veneer')">
+                    <img src="images/wood_veneer_table.jpg" alt="Тумба с шпоном">
+                    <p>Дерево-шпон</p>
+                </div>
+                <div class="option" onclick="selectStyle('marble')">
+                    <img src="images/marble_table.jpg" alt="Мраморная тумба">
+                    <p>Мраморная</p>
+                </div>
+                <div class="option" onclick="selectStyle('ribbed')">
+                    <img src="images/ribbed_table.jpg" alt="Тумба с ребристыми фасадами">
+                    <p>Ребристые фасады</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="step-3" class="quiz-step">
+            <h2>Шаг 2: Выберите тип механизма выдвижения</h2>
+            <div id="mechanism-options" class="options-container">
+            </div>
+        </div>
+
+        <div id="step-4" class="quiz-step">
+            <h2>Шаг 3: Как будет размещаться проекционный экран?</h2>
+            <div class="options-container">
+                <div class="option" onclick="selectScreen('wall_mount')">
+                    <img src="images/wall_screen.jpg" alt="Экран на стене">
+                    <p>Экран висит на стене</p>
+                </div>
+                <div class="option" onclick="selectScreen('wall_projection')">
+                    <img src="images/wall_projection.jpg" alt="Проекция на стену">
+                    <p>Проекция происходит на стену</p>
+                </div>
+                <div class="option" onclick="selectScreen('built_in')">
+                    <img src="images/built_in_screen.jpg" alt="Экран в нише">
+                    <p>Экран помещен в специальную нишу</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="step-5" class="quiz-step">
+            <h2 id="final-title"></h2>
+            <p id="final-summary"></p>
+            <p>Оставьте свой e-mail и получите скидку 15% на первый заказ. Скидка действует 6 месяцев.</p>
+            <form id="email-form">
+                <input type="email" id="user-email" placeholder="Ваш e-mail" required>
+                <button type="submit">Получить скидку</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
