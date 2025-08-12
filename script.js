@@ -86,7 +86,7 @@ function nextStep(step) {
 function selectStyle(style) {
     selectedStyle = style;
     selectOption(event, 'step-2');
-    document.body.style.backgroundColor = colorMap[style];
+    document.body.style.backgroundColor = colorMap[style]; // Меняем только цвет
     
     const mechanismOptionsDiv = document.getElementById('mechanism-options');
     mechanismOptionsDiv.innerHTML = ''; 
