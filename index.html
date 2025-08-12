@@ -6,8 +6,7 @@
     <title>Квиз по умным тумбам</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body class="quiz-background">
-
+<body>
     <div class="quiz-container">
         <div class="progress-container">
             <div id="progress-bar" class="progress-bar"></div>
@@ -16,7 +15,7 @@
 
         <div id="step-1" class="quiz-step active">
             <h2>Выберите дизайн тумбы, который подойдет именно вам</h2>
-            <p>Опрос займет не более 3 минут.</p>
+            <p class="subtitle">Опрос займет не более 3 минут.</p>
             <p>Пройдите тест, чтобы подобрать идеальную умную тумбу для вашего проектора. В конце вас ждёт приятный приз!</p>
             <button onclick="nextStep(2)">Начать</button>
         </div>
@@ -70,11 +69,12 @@
         <div id="step-5" class="quiz-step">
             <h2 id="final-title"></h2>
             <p id="final-summary"></p>
-            <p>Оставьте свой e-mail и получите скидку 15% на первый заказ. Скидка действует 6 месяцев.</p>
+            <p class="subtitle">Оставьте свой e-mail и получите скидку 15% на первый заказ. Скидка действует 6 месяцев.</p>
             <form id="email-form">
                 <input type="email" id="user-email" placeholder="Ваш e-mail" required>
                 <button type="submit">Получить скидку</button>
             </form>
+            <div id="final-animation"></div>
         </div>
     </div>
 
