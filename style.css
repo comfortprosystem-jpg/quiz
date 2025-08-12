@@ -17,14 +17,14 @@ body {
     cursor: url('/images/logo-cursor.png'), auto;
     position: relative;
     overflow-x: hidden;
-    transition: background-color 0.5s ease-in-out; /* Плавная смена фона */
     
-    /* Исправленные стили фона, теперь на body */
+    /* Исправленные стили фона, теперь только на body */
     background-color: #5D5E63;
     background-image: url('images/background-pattern.png');
     background-repeat: repeat;
     background-size: 250px;
     background-attachment: fixed;
+    transition: background-color 0.5s ease-in-out;
 }
 
 .quiz-container {
