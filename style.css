@@ -8,22 +8,23 @@
 
 body {
     font-family: 'TT Supermolot', sans-serif;
-    color: #1A1616; /* Фирменный цвет 1 */
+    color: #1A1616;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
     margin: 0;
-    cursor: auto;
-}
-
-/* Фон с вашим паттерном и цветом 3 */
-.quiz-background {
-    background-color: #5D5E63; /* Фирменный цвет 3 */
+    cursor: url('/images/logo-cursor.png'), auto;
+    position: relative;
+    overflow-x: hidden;
+    transition: background-color 0.5s ease-in-out; /* Плавная смена фона */
+    
+    /* Исправленные стили фона, теперь на body */
+    background-color: #5D5E63;
     background-image: url('images/background-pattern.png');
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
+    background-repeat: repeat;
+    background-size: 250px;
+    background-attachment: fixed;
 }
 
 .quiz-container {
@@ -34,49 +35,39 @@ body {
     max-width: 800px;
     width: 90%;
     text-align: center;
-    position: relative; /* Для позиционирования индикатора прогресса */
-}
-
-/* Стили для индикатора прогресса */
-.progress-container {
-    width: 90%;
-    height: 10px;
-    background-color: #e0e0e0;
-    border-radius: 5px;
-    margin: 0 auto 20px auto;
     position: relative;
+    overflow: hidden;
 }
 
-.progress-bar {
-    height: 100%;
-    width: 0%;
-    background-color: #FFC728;
-    border-radius: 5px;
-    transition: width 0.5s ease-in-out;
-}
-
-#progress-text {
-    position: absolute;
-    top: -25px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 14px;
-    font-weight: bold;
-    color: #1A1616;
-}
-
+/* Анимации переходов */
 .quiz-step {
     display: none;
-    animation: fadeIn 0.5s ease-in-out;
+    width: 100%;
+    top: 0;
+    left: 0;
+    padding: 40px;
+    box-sizing: border-box;
+    will-change: transform, opacity;
 }
 
 .quiz-step.active {
     display: block;
+    animation: slideInRight 0.5s forwards;
 }
 
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+.quiz-step.fade-out {
+    position: absolute;
+    animation: slideOutLeft 0.5s forwards;
+}
+
+@keyframes slideInRight {
+    from { opacity: 0; transform: translateX(100%); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideOutLeft {
+    from { opacity: 1; transform: translateX(0); }
+    to { opacity: 0; transform: translateX(-100%); }
 }
 
 h2 {
@@ -106,11 +97,17 @@ p {
     width: 45%;
     box-sizing: border-box;
     background-color: #f8f8f8;
-    position: relative; /* Для позиционирования галочки */
+    position: relative;
+    opacity: 1;
+}
+
+/* Эффект затемнения невыбранных опций */
+.options-container.deselected .option:not(.selected) {
+    opacity: 0.5;
 }
 
 .option:hover {
-    border-color: #FFC728; /* Фирменный цвет 2 */
+    border-color: #FFC728;
     background-color: #fff;
 }
 
@@ -125,14 +122,13 @@ p {
     transform: scale(1.05);
 }
 
-/* Визуальная обратная связь при выборе */
 .option.selected {
     border-color: #FFC728;
     background-color: #fff;
 }
 
 .option.selected::after {
-    content: '✓'; /* Галочка */
+    content: '✓';
     color: #FFC728;
     font-size: 30px;
     font-weight: bold;
@@ -154,15 +150,15 @@ button {
     font-weight: 700;
     border: none;
     border-radius: 8px;
-    background-color: #FFC728; /* Фирменный цвет 2 */
-    color: #1A1616; /* Фирменный цвет 1 */
+    background-color: #FFC728;
+    color: #1A1616;
     cursor: url('/images/logo-cursor.png') 0 0, pointer;
     margin-top: 30px;
     transition: background-color 0.3s;
 }
 
 button:hover {
-    background-color: #ffb700; /* Немного темнее, чем цвет 2 */
+    background-color: #ffb700;
 }
 
 input[type="email"] {
@@ -170,7 +166,7 @@ input[type="email"] {
     width: calc(100% - 22px);
     padding: 15px;
     font-size: 16px;
-    border: 2px solid #5D5E63; /* Фирменный цвет 3 */
+    border: 2px solid #5D5E63;
     border-radius: 8px;
     margin-top: 20px;
     color: #1A1616;
@@ -181,36 +177,65 @@ input[type="submit"] {
     cursor: url('/images/logo-cursor.png') 0 0, pointer;
 }
 
-/* Адаптивность для мобильных устройств */
+/* Анимация на финальном экране */
+#final-animation {
+    width: 50px;
+    height: 50px;
+    background-image: url('/images/letter-icon.png');
+    background-size: contain;
+    margin: 20px auto 0;
+    opacity: 0;
+    transform: translateY(100%);
+}
+
+#final-animation.sent {
+    animation: flyOut 1s ease-in-out forwards;
+}
+
+@keyframes flyOut {
+    0% { opacity: 0; transform: translateY(100%); }
+    50% { opacity: 1; transform: translateY(-50px) scale(1.2); }
+    100% { opacity: 0; transform: translateY(-200px) scale(0.5); }
+}
+
+/* Адаптация для мобильных устройств (улучшено) */
 @media (max-width: 768px) {
     .quiz-container {
-        padding: 20px;
+        padding: 15px;
         width: 95%;
+    }
+    h2 {
+        font-size: 22px;
+    }
+    .subtitle {
+        font-size: 16px;
+    }
+    p {
+        font-size: 14px;
     }
     .options-container {
         flex-direction: column;
-        gap: 20px;
+        gap: 15px;
     }
     .option {
         width: 100%;
     }
-    h2 {
-        font-size: 24px;
-    }
-    p {
+    button {
         font-size: 16px;
     }
 }
-
-/* Дополнительная адаптация для маленьких экранов */
-@media (max-width: 375px) {
-    .quiz-container {
-        padding: 15px;
+@media (max-width: 480px) {
+    body {
+        background-image: none;
     }
     h2 {
         font-size: 20px;
     }
-    p {
-        font-size: 14px;
+    .subtitle, p {
+        font-size: 13px;
+    }
+    .progress-container {
+        height: 8px;
+        margin-bottom: 15px;
     }
 }
